@@ -4,7 +4,7 @@ import autoPageRoutes from '~pages'
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 
-import { baseApi } from '@/api/_index'
+// import { baseApi } from '@/api/_index'
 import { merge } from 'es-toolkit'
 
 export type BaseSize = 'large' | 'default' | 'small'
@@ -32,10 +32,10 @@ export const useBaseStore = defineStore('base', () => {
     },
 
     fetchUserInfo() {
-      return baseApi.getInfo().then((res) => {
-        setting.userInfo = res.apiData
-        return res.apiData
-      })
+      // return baseApi.getInfo().then((res) => {
+      //   setting.userInfo = res.apiData
+      //   return res.apiData
+      // })
     },
   })
 
@@ -63,23 +63,23 @@ export const useBaseStore = defineStore('base', () => {
     initMenuList() {
       const route = useRoute()
 
-      return baseApi.getRouters().then((res) => {
-        menu.setTreeList(res.apiData)
+      // return baseApi.getRouters().then((res) => {
+      //   menu.setTreeList(res.apiData)
 
-        const authorisedRoutes = flattenMenus(res.apiData, '/')
-        autoPageRoutes.forEach((r) => {
-          if (!r.meta?.auth) return
+      //   const authorisedRoutes = flattenMenus(res.apiData, '/')
+      //   autoPageRoutes.forEach((r) => {
+      //     if (!r.meta?.auth) return
 
-          const item = authorisedRoutes.find((item) => item.path === r.path)
-          if (!item && !['/'].includes(item?.path) && !['/'].includes(item?.alias)) {
-            router?.removeRoute(r.name)
-          } else {
-            merge(r, { meta: item.meta })
-          }
-        })
-        menu.setBreadcrumb(authorisedRoutes.find((item) => item.path === route?.path)?.meta?.breadcrumb || [])
-        return res.apiData
-      })
+      //     const item = authorisedRoutes.find((item) => item.path === r.path)
+      //     if (!item && !['/'].includes(item?.path) && !['/'].includes(item?.alias)) {
+      //       router?.removeRoute(r.name)
+      //     } else {
+      //       merge(r, { meta: item.meta })
+      //     }
+      //   })
+      //   menu.setBreadcrumb(authorisedRoutes.find((item) => item.path === route?.path)?.meta?.breadcrumb || [])
+      //   return res.apiData
+      // })
     },
   })
 

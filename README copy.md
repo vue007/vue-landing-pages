@@ -1,4 +1,4 @@
-# vue-zero-admin
+# vue-landing-pages
 
 This template should help get you started developing with Vue 3 in Vite.
 

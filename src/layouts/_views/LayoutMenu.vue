@@ -1,33 +1,3 @@
-<!-- <template>
-  <Teleport :to="props.to" defer>
-    <el-menu
-      class="layout-menu"
-      :defaultActive="menu.active"
-      :collapse="menu.collapse"
-      @select="handleMenuSelect"
-      router
-    >
-      <el-menu-item index="/">
-        <el-icon><svg-icon name="el-odometer" /></el-icon>
-        <template #title>
-          <span class="w-160">Dashboard</span>
-        </template>
-      </el-menu-item>
-
-      <el-sub-menu index="/doc">
-        <template #title>
-          <el-icon><svg-icon name="el-cpu" /></el-icon>
-          <span>Demo</span>
-        </template>
-        <el-menu-item index="/doc/icon">SvgIcon</el-menu-item>
-        <el-menu-item index="/doc/modal">Modal</el-menu-item>
-        <el-menu-item index="/doc/form">Form</el-menu-item>
-        <el-menu-item index="/doc/table">Table</el-menu-item>
-        <el-menu-item index="/doc/crud">CRUD</el-menu-item>
-      </el-sub-menu>
-    </el-menu>
-  </Teleport>
-</template> -->
 <template>
   <Teleport :to="props.to" defer>
     <el-menu
@@ -94,11 +64,7 @@ watch(
   { immediate: true },
 )
 
-onMounted(() => {
-  setting.fetchUserInfo().then(() => {
-    menu.initMenuList()
-  })
-})
+onMounted(() => {})
 </script>
 
 <style lang="scss" scoped>

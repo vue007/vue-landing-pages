@@ -37,11 +37,6 @@
       <el-dropdown v-if="'dropdown' === action" trigger="click">
         <div class="flex items-center">
           <el-avatar class="cursor-pointer mr-8 w-28! h28! lt-sm:w-24! lt-sm:h-24!" shape="circle" src=""></el-avatar>
-          <span class="w-84 color-[var(--el-text-color-primary)] lt-sm:hidden">Admin</span>
-
-          <div class="ml-10 ml-auto lt-sm:hidden">
-            <svg-icon name="el-arrow-down-bold" />
-          </div>
         </div>
 
         <template #dropdown>
@@ -69,7 +64,7 @@ const { t } = useI18nLocal()
 const baseStore = useBaseStore()
 const { setting } = baseStore
 
-const ACTION_LIST = ['ALL', 'fullscreen', 'size', 'locale', 'theme', 'dropdown'] as const
+const ACTION_LIST = ['ALL', 'size', 'locale', 'theme'] as const
 export type ActionType = (typeof ACTION_LIST)[number]
 const props = defineProps({
   to: { type: String, default: '#header-right' },
