@@ -60,26 +60,28 @@ export const useBaseStore = defineStore('base', () => {
       menu.active = path
     },
 
-    initMenuList() {
+    initMenuList(data) {
       const route = useRoute()
 
-      // return baseApi.getRouters().then((res) => {
-      //   menu.setTreeList(res.apiData)
+      function _init(treeData) {
+        menu.setTreeList(treeData)
 
-      //   const authorisedRoutes = flattenMenus(res.apiData, '/')
-      //   autoPageRoutes.forEach((r) => {
-      //     if (!r.meta?.auth) return
+        const authorisedRoutes = flattenMenus(treeData, '/')
+        autoPageRoutes.forEach((r) => {
+          if (!r.meta?.auth) return
 
-      //     const item = authorisedRoutes.find((item) => item.path === r.path)
-      //     if (!item && !['/'].includes(item?.path) && !['/'].includes(item?.alias)) {
-      //       router?.removeRoute(r.name)
-      //     } else {
-      //       merge(r, { meta: item.meta })
-      //     }
-      //   })
-      //   menu.setBreadcrumb(authorisedRoutes.find((item) => item.path === route?.path)?.meta?.breadcrumb || [])
-      //   return res.apiData
-      // })
+          const item = authorisedRoutes.find((item) => item.path === r.path)
+          if (!item && !['/'].includes(item?.path) && !['/'].includes(item?.alias)) {
+            router?.removeRoute(r.name)
+          } else {
+            merge(r, { meta: item.meta })
+          }
+        })
+        menu.setBreadcrumb(authorisedRoutes.find((item) => item.path === route?.path)?.meta?.breadcrumb || [])
+      }
+
+      _init(data)
+      // or fetch api async
     },
   })
 

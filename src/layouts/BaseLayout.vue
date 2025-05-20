@@ -8,16 +8,12 @@
         <div class="app-title ml-16 flex lt-sm:ml-8"></div>
       </div>
 
+      <div id="layout-aside-menu" />
       <div class="header-right" id="header-right" />
     </header>
 
     <section class="layout-body">
-      <aside class="layout-aside">
-        <div id="layout-aside-menu"></div>
-        <div class="collapse-action" @click="baseStore.menu.toggleCollapse">
-          <svg-icon name="el-fold" />
-        </div>
-      </aside>
+      <aside class="layout-aside"></aside>
       <div class="layout-page">
         <el-breadcrumb class="page-breadcrumb" separator="/">
           <el-breadcrumb-item v-for="item in menu.breadcrumb">{{ item }}</el-breadcrumb-item>

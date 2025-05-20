@@ -1,12 +1,6 @@
 <template>
   <Teleport :to="props.to" defer>
-    <el-menu
-      class="layout-menu"
-      :defaultActive="menu.active"
-      :collapse="menu.collapse"
-      @select="handleMenuSelect"
-      router
-    >
+    <el-menu class="layout-menu" mode="horizontal" :defaultActive="menu.active" @select="handleMenuSelect" router>
       <LayoutMenuItem v-for="item in menuList" v-bind="item" :key="item.path"></LayoutMenuItem>
     </el-menu>
   </Teleport>
@@ -64,7 +58,46 @@ watch(
   { immediate: true },
 )
 
-onMounted(() => {})
+onMounted(() => {
+  menu.initMenuList([
+    {
+      path: '/home',
+      meta: {
+        title: '首页',
+        icon: 'system',
+      },
+      // children: [
+      //   {
+      //     name: 'Client123',
+      //     path: 'client',
+      //     component: 'home/index',
+      //     meta: {
+      //       title: '客户端管理',
+      //       icon: 'user',
+      //     },
+      //   },
+      // ],
+    },
+
+    {
+      path: '/demo',
+      meta: {
+        title: 'Demo',
+        icon: 'system',
+      },
+      // children: [
+      //   {
+      //     path: 'client',
+      //     component: 'demo/index',
+      //     meta: {
+      //       title: 'demo',
+      //       icon: 'user',
+      //     },
+      //   },
+      // ],
+    },
+  ])
+})
 </script>
 
 <style lang="scss" scoped>
