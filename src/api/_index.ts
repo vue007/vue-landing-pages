@@ -9,3 +9,5 @@
 // // export * as postApi from './sys/post.api'
 // export * as tenantApi from './sys/tenant.api'
 // export * as tenantPackageApi from './sys/tenant-package.api'
+
+export const _index = {}

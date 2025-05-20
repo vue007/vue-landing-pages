@@ -1,6 +1,14 @@
 <template>
   <Teleport :to="props.to" defer>
-    <el-menu class="layout-menu" mode="horizontal" :defaultActive="menu.active" @select="handleMenuSelect" router>
+    <el-menu
+      class="layout-menu"
+      mode="horizontal"
+      :popper-offset="1"
+      :ellipsis="false"
+      :defaultActive="menu.active"
+      @select="handleMenuSelect"
+      router
+    >
       <LayoutMenuItem v-for="item in menuList" v-bind="item" :key="item.path"></LayoutMenuItem>
     </el-menu>
   </Teleport>
@@ -9,8 +17,10 @@
 <script setup lang="tsx">
 import { useBaseStore } from '@/stores/base.module'
 
-const LayoutMenuItem = (props) =>
-  props?.children?.length ? (
+const LayoutMenuItem = (props) => {
+  if (props === undefined) return
+
+  return props?.children?.length ? (
     <el-sub-menu index={props.path}>
       {{
         title: <LayoutMenuItemSpan {...props} />,
@@ -20,10 +30,11 @@ const LayoutMenuItem = (props) =>
       }}
     </el-sub-menu>
   ) : (
-    <el-menu-item index={props.path}>
+    <el-menu-item id={props.path} index={props.path}>
       <LayoutMenuItemSpan {...props} />
     </el-menu-item>
   )
+}
 
 const LayoutMenuItemSpan = (props) => (
   <>
@@ -114,6 +125,17 @@ onMounted(() => {
   }
   :deep(.el-menu) {
     background-color: unset;
+  }
+}
+
+.el-menu--horizontal {
+  --el-menu-horizontal-height: 50px;
+
+  #{$size-large} {
+    --el-menu-horizontal-height: 60px;
+  }
+  #{$size-small} {
+    --el-menu-horizontal-height: 40px;
   }
 }
 </style>
