@@ -18,7 +18,7 @@
 import { useBaseStore } from '@/stores/base.module'
 
 const LayoutMenuItem = (props) => {
-  if (props === undefined) return
+  if (props === undefined) return null
 
   return props?.children?.length ? (
     <el-sub-menu index={props.path}>
@@ -43,7 +43,7 @@ const LayoutMenuItemSpan = (props) => (
         <svg-icon name={props.meta.icon} />
       </el-icon>
     ) : null}
-    <span class='min-w-100'>{props.meta?.title}</span>
+    <span class='min-w-20'>{props.meta?.title}</span>
   </>
 )
 
@@ -75,7 +75,6 @@ onMounted(() => {
       path: '/home',
       meta: {
         title: '首页',
-        icon: 'system',
       },
       // children: [
       //   {
@@ -94,7 +93,6 @@ onMounted(() => {
       path: '/demo',
       meta: {
         title: 'Demo',
-        icon: 'system',
       },
       // children: [
       //   {
