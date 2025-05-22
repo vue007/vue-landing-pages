@@ -6,6 +6,7 @@ import { useLocalStorage } from '@vueuse/core'
 
 // import { baseApi } from '@/api/_index'
 import { merge } from 'es-toolkit'
+import { find } from 'es-toolkit/compat'
 
 export type BaseSize = 'large' | 'default' | 'small'
 export type BaseTheme = 'dark' | 'light' | 'auto'
@@ -69,7 +70,6 @@ export const useBaseStore = defineStore('base', () => {
         const authorisedRoutes = flattenMenus(treeData, '/')
         autoPageRoutes.forEach((r) => {
           if (!r.meta?.auth) return
-
           const item = authorisedRoutes.find((item) => item.path === r.path)
           if (!item && !['/'].includes(item?.path) && !['/'].includes(item?.alias)) {
             router?.removeRoute(r.name)
@@ -77,10 +77,11 @@ export const useBaseStore = defineStore('base', () => {
             merge(r, { meta: item.meta })
           }
         })
+
         menu.setBreadcrumb(authorisedRoutes.find((item) => item.path === route?.path)?.meta?.breadcrumb || [])
       }
 
-      _init(data)
+      _init(mergeMetaIntoData(data, autoPageRoutes))
       // or fetch api async
     },
   })
@@ -101,4 +102,18 @@ function flattenMenus(routes, basePath = '', breadcrumb = []) {
     else list.push({ ...route, path: currentPath, meta: { ...route.meta, breadcrumb: _nb } })
   }
   return list
+}
+
+// 将 autoPageRoutes 的 meta 合并到 data 中
+function mergeMetaIntoData(data, autoPageRoutes) {
+  return data.map((item) => {
+    const route = find(autoPageRoutes, (r) => r.path === item.path)
+    if (route) {
+      item.meta = { ...item.meta, ...route.meta }
+    }
+    if (item.children) {
+      item.children = mergeMetaIntoData(item.children, autoPageRoutes)
+    }
+    return item
+  })
 }

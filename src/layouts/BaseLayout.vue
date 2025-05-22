@@ -8,7 +8,7 @@
         <div class="app-title ml-16 flex lt-sm:ml-8"></div>
       </div>
 
-      <div id="layout-aside-menu" />
+      <div class="layout-header-menu" id="layout-main-menu" />
       <div class="header-right" id="header-right" />
     </header>
 
@@ -27,6 +27,10 @@
         </router-view>
       </div>
     </section>
+
+    <!-- <section class="layout-footer">
+      <div id="layout-main-menu" />
+    </section> -->
   </div>
 
   <LayoutActions :to="actionsPosition" />
@@ -47,7 +51,7 @@ const needKeep = computed(() => isTab.value)
 const pageRef = ref(null)
 
 const actionsPosition = '#header-right'
-const menuPosition = '#layout-aside-menu'
+const menuPosition = '#layout-main-menu'
 
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 watchDebounced(

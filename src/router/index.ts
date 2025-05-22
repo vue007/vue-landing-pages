@@ -15,6 +15,8 @@ let routes: Array<AppRouteRecordRaw> = [{ path: '/', redirect: '/home', meta: { 
 
 routes = uniqBy(concat(routes, autoPageRoutes), (item) => item.path)
 
+console.log('routes', routes)
+
 let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,

@@ -73,20 +73,6 @@ onMounted(() => {
   menu.initMenuList([
     {
       path: '/home',
-      meta: {
-        title: '首页',
-      },
-      // children: [
-      //   {
-      //     name: 'Client123',
-      //     path: 'client',
-      //     component: 'home/index',
-      //     meta: {
-      //       title: '客户端管理',
-      //       icon: 'user',
-      //     },
-      //   },
-      // ],
     },
 
     {
@@ -94,16 +80,6 @@ onMounted(() => {
       meta: {
         title: 'Demo',
       },
-      // children: [
-      //   {
-      //     path: 'client',
-      //     component: 'demo/index',
-      //     meta: {
-      //       title: 'demo',
-      //       icon: 'user',
-      //     },
-      //   },
-      // ],
     },
   ])
 })
