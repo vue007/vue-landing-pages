@@ -32,7 +32,7 @@ watchEffect(() => {
 })
 
 // # switch lang
-const langs = { zh_CN: import('element-plus/es/locale/lang/zh-cn'), zh_TW, en }
+const langs = { zh_CN, zh_TW, en }
 const locale = computed(() => langs[setting.local] || zh_CN)
 watchEffect(() => (i18n.locale.value = setting.local))
 

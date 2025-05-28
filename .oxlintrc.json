@@ -4,13 +4,23 @@
   "env": {
     "browser": true
   },
-  "globals": {
-    "foo": "readonly"
-  },
-  "settings": {},
+  "extends": ["plugin:vue/vue3-essential", "prettier", "@unocss/eslint-config/flat", ".oxlint-typescript.json"],
   "rules": {
     "eqeqeq": "warn",
     "import/no-cycle": "error",
     "no-unsafe-declaration-merging": "off"
-  }
+  },
+  "settings": {},
+  "ignorePatterns": [
+    "node_modules",
+    "**/index.html",
+    ".idea",
+    "dist",
+    "/public",
+    "src/assets",
+    "*.md",
+    "*.woff",
+    "*.ttf",
+    "README.md"
+  ]
 }

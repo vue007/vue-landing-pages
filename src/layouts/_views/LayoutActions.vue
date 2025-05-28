@@ -1,9 +1,9 @@
 <template>
   <Teleport :to="props.to" defer>
     <template v-for="action in actions.includes('ALL') ? ACTION_LIST : actions" :key="action">
-      <div v-if="'fullscreen' === action" class="action cursor-pointer" v-tooltip="'full screen'">
+      <!-- <div v-if="'fullscreen' === action" class="action cursor-pointer" v-tooltip="'full screen'">
         <svg-icon name="ze-full-screen" />
-      </div>
+      </div> -->
 
       <el-popover v-if="'size' === action" trigger="hover">
         <template #reference>
@@ -34,24 +34,24 @@
         <LocaleCheckTag value="en" text="English" />
       </el-popover>
 
-      <el-dropdown v-if="'dropdown' === action" trigger="click">
+      <!-- <el-dropdown v-if="'dropdown' === action" trigger="click">
         <div class="flex items-center">
           <el-avatar class="cursor-pointer mr-8 w-28! h28! lt-sm:w-24! lt-sm:h-24!" shape="circle" src=""></el-avatar>
         </div>
 
         <template #dropdown>
           <el-dropdown-menu class="min-w-140">
-            <!-- <el-dropdown-item @click="() => $router.push('/sys/user/setting')">
+            <el-dropdown-item @click="() => $router.push('/sys/user/setting')">
             <svg-icon class="mr-10" name="el-setting" />
             个人设置
-          </el-dropdown-item> -->
+          </el-dropdown-item>
             <el-dropdown-item divided @click="() => $router.push('/login')">
               <svg-icon class="mr-10" name="el-switch-button" />
               退出
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
-      </el-dropdown>
+      </el-dropdown> -->
     </template>
   </Teleport>
 </template>

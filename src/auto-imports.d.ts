@@ -7,8 +7,6 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const ElMessage: typeof import('element-plus/es')['ElMessage']
-  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const computed: typeof import('vue')['computed']
   const createApp: typeof import('vue')['createApp']
@@ -71,7 +69,6 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
-  const useDict: typeof import('./hooks/useDict')['useDict']
   const useForm: typeof import('./hooks/useForm')['useForm']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useI18nLocal: typeof import('./hooks/useI18nLocal')['useI18nLocal']
