@@ -71,7 +71,7 @@ const props = defineProps({
 
   actions: {
     type: Array as PropType<Array<ActionType>>,
-    default: () => 'ALL',
+    default: () => ['ALL'],
   },
 })
 
