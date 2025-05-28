@@ -4,37 +4,34 @@
       class="layout-menu"
       mode="horizontal"
       :popper-offset="1"
-      :ellipsis="false"
+      :ellipsis="true"
+      style="max-width: 400px"
       :defaultActive="menu.active"
       @select="handleMenuSelect"
       router
     >
-      <LayoutMenuItem v-for="item in menuList" v-bind="item" :key="item.path"></LayoutMenuItem>
+      <template v-for="item in menuList">
+        <el-sub-menu v-if="item?.children?.length" :index="item.path">
+          <template #title>
+            <LayoutMenuItemSpan v-bind="item" />
+          </template>
+          <LayoutMenuItem
+            v-for="child in item.children"
+            :key="child.path"
+            :item="child"
+            :path="`${item.path}/${child.path}`"
+          />
+        </el-sub-menu>
+        <el-menu-item v-else :id="item.path" :index="item.path">
+          <LayoutMenuItemSpan v-bind="item" />
+        </el-menu-item>
+      </template>
     </el-menu>
   </Teleport>
 </template>
 
 <script setup lang="tsx">
 import { useBaseStore } from '@/stores/base.module'
-
-const LayoutMenuItem = (props) => {
-  if (props === undefined) return null
-
-  return props?.children?.length ? (
-    <el-sub-menu index={props.path}>
-      {{
-        title: <LayoutMenuItemSpan {...props} />,
-        default: props.children.map((item) => (
-          <LayoutMenuItem key={item.path} {...item} path={`${props.path}/${item.path}`} />
-        )),
-      }}
-    </el-sub-menu>
-  ) : (
-    <el-menu-item id={props.path} index={props.path}>
-      <LayoutMenuItemSpan {...props} />
-    </el-menu-item>
-  )
-}
 
 const LayoutMenuItemSpan = (props) => (
   <>
@@ -90,6 +87,7 @@ onMounted(() => {
   border-right: unset;
   background-color: unset;
   margin-top: 12px;
+  width: 100%;
 
   #{$size-large} {
     font-size: var(--el-font-size-large);
