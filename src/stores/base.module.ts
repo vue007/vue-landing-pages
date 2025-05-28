@@ -45,6 +45,7 @@ export const useBaseStore = defineStore('base', () => {
     active: '',
     breadcrumb: [] as any[],
     treeList: [] as any[],
+    loaded: false,
     setTreeList(list: any[]) {
       menu.treeList = list
     },
@@ -62,6 +63,7 @@ export const useBaseStore = defineStore('base', () => {
     },
 
     initMenuList(data) {
+      menu.loaded = false
       const route = useRoute()
 
       function _init(treeData) {
@@ -83,6 +85,9 @@ export const useBaseStore = defineStore('base', () => {
 
       _init(mergeMetaIntoData(data, autoPageRoutes))
       // or fetch api async
+      setTimeout(() => {
+        menu.loaded = true
+      }, 500)
     },
   })
 

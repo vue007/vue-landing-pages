@@ -64,6 +64,14 @@ watchDebounced(
 
 onMounted(() => {
   console.log(t('header'))
+  menu.initMenuList([
+    { path: '/home' },
+    { path: '/demo' },
+    { path: '/demo' },
+    { path: '/demo' },
+    { path: '/demo' },
+    { path: '/demo' },
+  ])
 })
 </script>
 
