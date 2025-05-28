@@ -66,11 +66,11 @@ onMounted(() => {
   console.log(t('header'))
   menu.initMenuList([
     { path: '/home' },
-    { path: '/demo' },
-    { path: '/demo' },
-    { path: '/demo' },
-    { path: '/demo' },
-    { path: '/demo' },
+    { path: '/demo/1' },
+    { path: '/demo/2' },
+    { path: '/demo/3' },
+    { path: '/demo/4' },
+    { path: '/demo/5' },
   ])
 })
 </script>

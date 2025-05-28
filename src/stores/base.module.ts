@@ -68,56 +68,36 @@ export const useBaseStore = defineStore('base', () => {
 
       function _init(treeData) {
         menu.setTreeList(treeData)
-
-        const authorisedRoutes = flattenMenus(treeData, '/')
-        autoPageRoutes.forEach((r) => {
-          if (!r.meta?.auth) return
-          const item = authorisedRoutes.find((item) => item.path === r.path)
-          if (!item && !['/'].includes(item?.path) && !['/'].includes(item?.alias)) {
-            router?.removeRoute(r.name)
-          } else {
-            merge(r, { meta: item.meta })
-          }
-        })
-
-        menu.setBreadcrumb(authorisedRoutes.find((item) => item.path === route?.path)?.meta?.breadcrumb || [])
       }
 
-      _init(mergeMetaIntoData(data, autoPageRoutes))
+      _init(matchMenuFromPage(data, autoPageRoutes))
       // or fetch api async
       setTimeout(() => {
         menu.loaded = true
-      }, 500)
+      }, 50)
     },
   })
 
   return { setting, menu }
 })
 
-function flattenMenus(routes, basePath = '', breadcrumb = []) {
-  const list: any[] = []
-  const stack = routes.map((route) => ({ route, fullPath: basePath, breadcrumb }))
-  while (stack.length) {
-    const { route, fullPath, breadcrumb } = stack.pop()
-    const currentPath = `${fullPath}/${route.path}`.replace(/\/+/g, '/')
-    const _nb = [...breadcrumb]
-    if (route.meta?.title) _nb.push(route.meta.title)
-    if (route.children?.length)
-      stack.push(...route.children.map((child) => ({ route: child, fullPath: currentPath, breadcrumb: _nb })))
-    else list.push({ ...route, path: currentPath, meta: { ...route.meta, breadcrumb: _nb } })
-  }
-  return list
-}
-
-// 将 autoPageRoutes 的 meta 合并到 data 中
-function mergeMetaIntoData(data, autoPageRoutes) {
-  return data.map((item) => {
-    const route = find(autoPageRoutes, (r) => r.path === item.path)
+// 使用 vue-router 的 resolve/matched 进行路由模式匹配，支持动态路由如 demo/:id
+function matchMenuFromPage(menuData, pageRoutes) {
+  const router = useRouter()
+  return menuData.map((item) => {
+    // 查找能匹配 item.path 的路由记录
+    const route = find(pageRoutes, (r) => {
+      try {
+        const resolved = router.resolve(item.path)
+        // 判断 matched 路由记录中是否有 r
+        return resolved.matched.some((m) => m.name === r.name || m.path === r.path)
+      } catch {
+        return false
+      }
+    })
     if (route) {
-      item.meta = { ...item.meta, ...route.meta }
-    }
-    if (item.children) {
-      item.children = mergeMetaIntoData(item.children, autoPageRoutes)
+      item.meta = merge(item.meta || {}, route.meta || {})
+      item.children = matchMenuFromPage(item.children || [], pageRoutes)
     }
     return item
   })

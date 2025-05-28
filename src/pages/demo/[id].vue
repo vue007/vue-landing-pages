@@ -3,5 +3,5 @@
 </route>
 
 <template>
-  <div>demo page</div>
+  <div>demo page {{ $route.params.id }}</div>
 </template>
