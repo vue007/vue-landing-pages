@@ -3,7 +3,7 @@
     <header class="layout-header">
       <div class="header-left" id="header-left">
         <div class="app-logo flex">
-          <img class="w-36 h-36 lt-sm:w-28 lt-sm:h-28" src="@/assets/images/logo.png" alt="logo" />
+          <img class="w-36 h-36 lt-sm:w-28 lt-sm:h-28" src="@/assets/images/logo.svg" alt="logo" />
         </div>
         <div class="app-title ml-16 flex lt-sm:ml-8"></div>
       </div>
@@ -64,14 +64,7 @@ watchDebounced(
 
 onMounted(() => {
   console.log(t('header'))
-  menu.initMenuList([
-    { path: '/home' },
-    { path: '/demo/1' },
-    { path: '/demo/2' },
-    { path: '/demo/3' },
-    { path: '/demo/4' },
-    { path: '/demo/5' },
-  ])
+  menu.initMenuList([{ path: '/home' }, { path: '/demo/1' }, { path: '/contact' }, { path: '/about' }])
 })
 </script>
 
