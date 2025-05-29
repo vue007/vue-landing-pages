@@ -2,38 +2,62 @@
   <Teleport :to="props.to" defer>
     <el-menu
       class="layout-menu"
-      mode="horizontal"
+      :mode="mode"
       :popper-offset="1"
-      :ellipsis="true"
-      style="max-width: 400px"
       :defaultActive="menu.active"
       @select="handleMenuSelect"
+      ellipsis
       router
     >
-      <template v-for="item in menuList">
-        <el-sub-menu v-if="item?.children?.length" :index="item.path">
-          <template #title>
-            <LayoutMenuItemSpan v-bind="item" />
-          </template>
-          <LayoutMenuItem
-            v-for="child in item.children"
-            :key="child.path"
-            :item="child"
-            :path="`${item.path}/${child.path}`"
-          />
-        </el-sub-menu>
-        <el-menu-item v-else :id="item.path" :index="item.path">
-          <LayoutMenuItemSpan v-bind="item" />
-        </el-menu-item>
-      </template>
+      <LMenuContent />
     </el-menu>
   </Teleport>
 </template>
 
 <script setup lang="tsx">
 import { useBaseStore } from '@/stores/base.module'
+import { isArray } from 'es-toolkit/compat'
+import type { VNode } from 'vue'
 
-const LayoutMenuItemSpan = (props) => (
+const LMenuContent = () => {
+  const stack: ({ node: VNode; parentVNodeArray: any } | any)[] = []
+  const result: VNode[] = []
+  // 每个栈元素：{ node, parentVNodeArray }
+  menuList.value.forEach((item) => stack.push({ node: item, parentVNodeArray: result }))
+
+  while (stack.length) {
+    const { node, parentVNodeArray } = stack.pop()
+
+    if (!node) continue
+
+    if (isArray(node.children) && node.children.length) {
+      const childrenVNodes: VNode[] = []
+      // 先将所有子节点入栈（逆序保证顺序一致）
+      for (let i = node.children.length - 1; i >= 0; i--) {
+        stack.push({ node: node.children[i], parentVNodeArray: childrenVNodes })
+      }
+      parentVNodeArray.push(
+        <el-sub-menu index={node.path} key={node.path}>
+          {{
+            title: () => <LMenuItemContent {...node} />,
+            default: () => childrenVNodes,
+          }}
+        </el-sub-menu>,
+      )
+    } else {
+      // 创建 el-menu-item 节点
+      parentVNodeArray.push(
+        <el-menu-item id={node.path} index={node.path} key={node.path}>
+          <LMenuItemContent {...node} />
+        </el-menu-item>,
+      )
+    }
+  }
+
+  return result.reverse() // 由于栈是后进先出，结果需要反转
+}
+
+const LMenuItemContent = (props) => (
   <>
     {props.meta?.icon ? (
       <el-icon>
@@ -52,6 +76,7 @@ const menuList = computed(() => menu.treeList)
 
 const props = defineProps({
   to: { type: String, default: '#layout-aside' },
+  mode: { type: String as PropType<'horizontal' | 'vertical'>, default: 'horizontal' },
 })
 
 const handleMenuSelect = () => {}
@@ -66,28 +91,18 @@ watch(
   { immediate: true },
 )
 
-onMounted(() => {
-  menu.initMenuList([
-    {
-      path: '/home',
-    },
-
-    {
-      path: '/demo',
-      meta: {
-        title: 'Demo',
-      },
-    },
-  ])
-})
+onMounted(() => {})
 </script>
 
 <style lang="scss" scoped>
 .layout-menu {
   border-right: unset;
   background-color: unset;
-  margin-top: 12px;
-  width: 100%;
+  // width: 100%;
+  max-width: 500px;
+  &.el-menu--horizontal {
+    padding-top: 6px;
+  }
 
   #{$size-large} {
     font-size: var(--el-font-size-large);
@@ -101,13 +116,13 @@ onMounted(() => {
 }
 
 .el-menu--horizontal {
-  --el-menu-horizontal-height: 50px;
+  --el-menu-horizontal-height: 64px;
 
   #{$size-large} {
-    --el-menu-horizontal-height: 60px;
+    --el-menu-horizontal-height: 74px;
   }
   #{$size-small} {
-    --el-menu-horizontal-height: 40px;
+    --el-menu-horizontal-height: 54px;
   }
 }
 </style>
