@@ -22,6 +22,9 @@ export const useBaseStore = defineStore('base', () => {
     size: useLocalStorage<BaseSize>('setting.size', 'default'),
     userInfo: useLocalStorage('setting.userInfo', {}),
 
+    isDark: computed(() => setting.theme === 'dark'),
+    isLight: computed(() => setting.theme === 'light'),
+
     setLocale(locale: BaseLang) {
       setting.local = locale
     },
