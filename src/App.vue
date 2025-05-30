@@ -46,8 +46,13 @@ const systemTheme = computed(() => {
 watchImmediate(
   () => theme.value,
   () => {
-    if (theme.value === 'auto') document.documentElement.setAttribute('data-theme', systemTheme.value)
-    else document.documentElement.setAttribute('data-theme', theme.value)
+    if (theme.value === 'auto') {
+      document.documentElement.setAttribute('data-theme', systemTheme.value)
+      setting.currentTheme = systemTheme.value
+    } else {
+      document.documentElement.setAttribute('data-theme', theme.value)
+      setting.currentTheme = theme.value
+    }
   },
 )
 // - auto switch by system

@@ -19,17 +19,21 @@ export const useBaseStore = defineStore('base', () => {
   const setting = reactive({
     local: useLocalStorage<BaseLang>('setting.local', 'zh-CN'),
     theme: useLocalStorage<BaseTheme>('setting.theme', 'light'),
+    currentTheme: ref(''),
     size: useLocalStorage<BaseSize>('setting.size', 'default'),
     userInfo: useLocalStorage('setting.userInfo', {}),
 
-    isDark: computed(() => setting.theme === 'dark'),
-    isLight: computed(() => setting.theme === 'light'),
+    isDark: computed(() => setting.currentTheme === 'dark'),
+    isLight: computed(() => setting.currentTheme === 'light'),
 
     setLocale(locale: BaseLang) {
       setting.local = locale
     },
     setTheme(theme: BaseTheme) {
       setting.theme = theme
+    },
+    setCurrentTheme(theme: Omit<BaseTheme, 'auto'>) {
+      setting.currentTheme = theme
     },
     setSize(size: BaseSize) {
       setting.size = size
