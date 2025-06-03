@@ -3,7 +3,6 @@
 </route>
 
 <template>
-  <!-- <InspLiquidBg class="absolute inset-0" /> -->
   <InspParticlesBg
     ref="particlesBg"
     class="absolute inset-0"
@@ -16,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-// import InspLiquidBg from '@/components/Inspira/InspLiquidBg.vue'
 import InspParticlesBg from '@/components/Inspira/InspParticlesBg.vue'
 
 import { useBaseStore } from '@/stores/base.module'
