@@ -1,7 +1,5 @@
 <template>
-  <ElConfigProvider :locale="locale" :size="setting.size" :z-index="3000">
-    <component :is="currentLayout" />
-  </ElConfigProvider>
+  <component :is="currentLayout" />
 </template>
 
 <script setup lang="ts">
@@ -13,15 +11,14 @@ import { useBaseStore } from './stores/base.module'
 import BaseLayout from './layouts/BaseLayout.vue'
 import BlankLayout from './layouts/BlankLayout.vue'
 
-import zh_CN from 'element-plus/es/locale/lang/zh-cn'
-import zh_TW from 'element-plus/es/locale/lang/zh-tw'
-import en from 'element-plus/es/locale/lang/en'
 import { useMediaQuery, watchImmediate } from '@vueuse/core'
+import { usePrimeVue } from 'primevue'
 
 const route = useRoute()
 const baseStore = useBaseStore()
 const { setting } = baseStore
 const i18n = useI18n()
+const { appContext } = getCurrentInstance()!
 
 // # switch layout
 const currentLayout = shallowRef(BaseLayout)
@@ -31,9 +28,14 @@ watchEffect(() => {
   currentLayout.value = layouts[layoutName || 'blank']
 })
 
+const primevue = usePrimeVue()
+watchEffect(() => {
+  primevue.config.locale = i18n.locale.value as any
+})
+
 // # switch lang
-const langs = { zh_CN, zh_TW, en }
-const locale = computed(() => langs[setting.local] || zh_CN)
+// const langs = { zh_CN, zh_TW, en }
+// const locale = computed(() => langs[setting.local] || zh_CN)
 watchEffect(() => (i18n.locale.value = setting.local))
 
 // # switch theme

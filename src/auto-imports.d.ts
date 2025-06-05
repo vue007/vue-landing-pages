@@ -69,18 +69,14 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
-  const useForm: typeof import('./hooks/useForm')['useForm']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useI18nLocal: typeof import('./hooks/useI18nLocal')['useI18nLocal']
   const useId: typeof import('vue')['useId']
   const useLink: typeof import('vue-router')['useLink']
-  const useModal: typeof import('./hooks/useModal')['useModal']
   const useModel: typeof import('vue')['useModel']
-  const usePagination: typeof import('./hooks/usePagination')['usePagination']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
   const useSlots: typeof import('vue')['useSlots']
-  const useTable: typeof import('./hooks/useTable')['useTable']
   const useTemplateRef: typeof import('vue')['useTemplateRef']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
@@ -98,7 +94,4 @@ declare global {
   // @ts-ignore
   export type { UseApiOnSuccessFn, UseApiOnSubmitFn, UseApiOnErrorFn, UseApiReturn } from './hooks/useApi'
   import('./hooks/useApi')
-  // @ts-ignore
-  export type { FormItemsDatas } from './hooks/useForm'
-  import('./hooks/useForm')
 }

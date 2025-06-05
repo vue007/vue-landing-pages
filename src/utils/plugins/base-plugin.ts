@@ -1,5 +1,4 @@
 import { h, render, type Plugin } from 'vue'
-import { ElTooltip } from 'element-plus'
 import { isString, merge } from 'es-toolkit'
 
 const tooltip = (el: HTMLElement, value: string | any) => {
@@ -13,7 +12,7 @@ const tooltip = (el: HTMLElement, value: string | any) => {
   })
 
   if (attrs.content) {
-    const nVNode = h(ElTooltip, attrs)
+    const nVNode = h('div', attrs)
     const dom = document.createElement('span')
     render(nVNode, dom)
   }

@@ -12,7 +12,7 @@
     "outDir": "./",
     "noImplicitAny": false,
 
-    "types": ["element-plus/global", "@intlify/unplugin-vue-i18n/messages"],
+    "types": ["aprimevue/config", "@intlify/unplugin-vue-i18n/messages"],
     "skipLibCheck": true,
     "moduleResolution": "node",
     "lib": ["es2024", "dom"],

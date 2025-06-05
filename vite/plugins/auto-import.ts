@@ -1,6 +1,5 @@
 import AutoImport from 'unplugin-auto-import/vite'
-
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 
 export const vitePluginAutoImport = () =>
   AutoImport({
@@ -13,5 +12,5 @@ export const vitePluginAutoImport = () =>
       globalsPropValue: true,
     },
     dts: './src/auto-imports.d.ts',
-    resolvers: [ElementPlusResolver()],
+    resolvers: [PrimeVueResolver()],
   })

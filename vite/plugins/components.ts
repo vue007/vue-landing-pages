@@ -1,5 +1,5 @@
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 
 export const vitePluginComponents = () =>
   Components({
@@ -7,5 +7,5 @@ export const vitePluginComponents = () =>
     extensions: ['vue'],
     dirs: ['src/components', 'src/layouts', 'src/pages/components', 'src/pages/_views', 'src/hooks'], // for auto import project components
     dts: './src/components.d.ts',
-    resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
+    resolvers: [PrimeVueResolver()],
   })
